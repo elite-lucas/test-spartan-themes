@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component, inject } from '@angular/core';
+import { BasicThemeComponent, ThemesService } from 'lugraff-spartan-themes';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [BasicThemeComponent],
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  template: `
+    <div class="w-screen h-screen flex justify-center items-center">
+      <lib-basic-theme></lib-basic-theme>
+    </div>
+  `,
 })
 export class AppComponent {
-  title = 'test-spartan-themes';
+  readonly #themes = inject(ThemesService);
+
+  constructor() {
+    this.#themes.init();
+  }
 }
